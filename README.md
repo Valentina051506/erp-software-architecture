@@ -53,7 +53,7 @@ Este escenario describe cómo el sistema ERP procesa la creación de una orden d
 
 ## Diagrama de Secuencia
 
-![Diagrama de Contexto](./images/D1.png)
+![Diagrama de Contexto](./docs/D1.png)
 
 # Vista de Despliegue (Opcional)
 
