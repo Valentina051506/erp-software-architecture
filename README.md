@@ -23,7 +23,7 @@ El sistema ERP tiene como objetivo centralizar y automatizar los procesos de neg
 El ERP abarca todos los procesos de negocio de la empresa. Este diagrama de contexto muestra al ERP como un sistema central que interactúa con usuarios internos (Compras, RRHH, Directivos) y sistemas externos (Contable, Banco).
 
 ## Diagrama de Contexto (C1)
-IMAGEN
+![Diagrama de Contexto](./docs/D1.png)
 
 # Vista de Contenedores (C2)
 
@@ -35,7 +35,7 @@ El diagrama de contenedores muestra la arquitectura interna del ERP, separando l
 
 ## Diagrama de Contenedores (C2)
 
-IMAGEN
+![Diagrama de Contendores](./docs/D2.png)
 
 # Vista de Ejecución (Runtime)
 
@@ -53,9 +53,9 @@ Este escenario describe cómo el sistema ERP procesa la creación de una orden d
 
 ## Diagrama de Secuencia
 
-![Diagrama de Contexto](./docs/D1.png)
+![Diagrama de Secuencia](./docs/D3.png)
 
-# Vista de Despliegue (Opcional)
+# Vista de Despliegue
 
 - **Servidor Backend (Spring Boot):** Desplegado en contenedor Docker, conectado a la base de datos PostgreSQL.  
 - **Base de Datos:** PostgreSQL en servidor dedicado o contenedor, con copias de seguridad diarias.  
@@ -70,4 +70,6 @@ Este escenario describe cómo el sistema ERP procesa la creación de una orden d
 - **Solicitud de Compra:** Petición de productos realizada por un usuario solicitante, que puede ser aprobada o rechazada.  
 - **Detalle de Solicitud:** Relación entre una solicitud y los productos solicitados, con cantidades específicas.  
 - **Orden de Compra:** Documento formal que autoriza la compra de productos a un proveedor, generado a partir de una solicitud aprobada.  
-- **Usuario:** Persona que interactúa con el ERP, con roles como administrador de compras, solicitante, RRHH o directivo.  
+- **Usuario:** Persona que interactúa con el ERP, con roles como administrador de compras, solicitante, RRHH o directivo.
+
+![Modelo Entidad-Relacion](./docs/D4.png)
