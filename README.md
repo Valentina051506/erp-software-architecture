@@ -1,220 +1,73 @@
----
-date: Enero 2023
-title: Plantilla ![arc42](images/arc42-logo.png)
----
+# Introducción y Metas
+## Objetivo del Sistema ERP
+El sistema ERP tiene como objetivo centralizar y automatizar los procesos de negocio de la empresa, permitiendo una gestión eficiente de Compras, Facturación, Stock/Costos, Activos Fijos, Empleados y EIS.
+## Requisitos de Negocio - Módulo de Compras
+1. Permitir registrar y gestionar proveedores.  
+2. Permitir registrar y mantener el catálogo de productos.  
+3. Gestionar solicitudes de compra y su aprobación.  
+4. Generar órdenes de compra a partir de solicitudes aprobadas.  
+5. Integrar con el sistema contable externo para enviar facturas y registros.  
+6. Consultar historial de órdenes y solicitudes.  
+7. Controlar permisos de usuario según roles (administrador, solicitante, directivo).
 
-# 
+# Decisiones Tecnológicas
 
-**Acerca de arc42**
+- **Backend:** Java con Spring Boot, para lógica de negocio centralizada.  
+- **Frontend:** Aplicación web SPA desarrollada con React, accesible por navegadores modernos.  
+- **Base de Datos:** PostgreSQL, para almacenamiento estructurado de datos del ERP.  
+- **Integración con Sistemas Externos:** REST API para conexión con sistema contable y pasarela de pagos.  
+- **Autenticación y Seguridad:** Gestión de roles y permisos por JWT.
 
-arc42, La plantilla de documentación para arquitectura de sistemas y de
-software.
+# Alcance y Contexto del Sistema
 
-Por Dr. Gernot Starke, Dr. Peter Hruschka y otros contribuyentes.
+El ERP abarca todos los procesos de negocio de la empresa. Este diagrama de contexto muestra al ERP como un sistema central que interactúa con usuarios internos (Compras, RRHH, Directivos) y sistemas externos (Contable, Banco).
 
-Revisión de la plantilla: 7.0 ES (basada en asciidoc), Enero 2017
+## Diagrama de Contexto (C1)
+IMAGEN
 
-© Reconocemos que este documento utiliza material de la plantilla de
-arquitectura arc42, <https://www.arc42.org>. Creada por Dr. Peter
-Hruschka y Dr. Gernot Starke.
+# Vista de Contenedores (C2)
 
-# Introducción y Metas {#section-introduction-and-goals}
+El diagrama de contenedores muestra la arquitectura interna del ERP, separando los principales contenedores y sus responsabilidades:
 
-## Vista de Requerimientos {#_vista_de_requerimientos}
+1. **Aplicación Web (Web App):** Interfaz principal para usuarios internos, permite gestionar compras, solicitudes, empleados y consultar reportes.  
+2. **Servidor API (API Server):** Exposición de servicios REST para interacción interna y con sistemas externos, maneja la lógica de negocio y validaciones.  
+3. **Base de Datos Central (DB):** Almacena de manera estructurada todas las entidades del ERP: proveedores, productos, solicitudes, órdenes, empleados, activos fijos.  
 
-## Metas de Calidad {#_metas_de_calidad}
+## Diagrama de Contenedores (C2)
 
-## Partes interesadas (Stakeholders) {#_partes_interesadas_stakeholders}
+IMAGEN
 
-+-------------+---------------------------+---------------------------+
-| Rol/Nombre  | Contacto                  | Expectativas              |
-+=============+===========================+===========================+
-| *           | *\<Contact-1\>*           | *\<Expectation-1\>*       |
-| \<Role-1\>* |                           |                           |
-+-------------+---------------------------+---------------------------+
-| *           | *\<Contact-2\>*           | *\<Expectation-2\>*       |
-| \<Role-2\>* |                           |                           |
-+-------------+---------------------------+---------------------------+
+# Vista de Ejecución (Runtime)
 
-# Restricciones de la Arquitectura {#section-architecture-constraints}
+## Escenario Crítico: Generar una Orden de Compra
 
-# Alcance y Contexto del Sistema {#section-context-and-scope}
+Este escenario describe cómo el sistema ERP procesa la creación de una orden de compra a partir de una solicitud aprobada.
 
-## Contexto de Negocio {#_contexto_de_negocio}
+### Flujo de Interacciones
+1. El **Responsable de Compras** selecciona una solicitud aprobada en la web.  
+2. La **Aplicación Web** envía la solicitud al **Servidor API**.  
+3. El **API** verifica los datos en la **Base de Datos**.  
+4. Se registra la **Orden de Compra** en la base de datos.  
+5. El **API** envía la información de la orden al **Sistema Contable Externo**.  
+6. Se confirma la creación de la orden en la **Aplicación Web** y se notifica al usuario.
 
-**\<Diagrama o Tabla\>**
+## Diagrama de Secuencia
 
-**\<optionally: Explanation of external domain interfaces\>**
+IMAGEN
 
-## Contexto Técnico {#_contexto_técnico}
+# Vista de Despliegue (Opcional)
 
-**\<Diagrama o Tabla\>**
+- **Servidor Backend (Spring Boot):** Desplegado en contenedor Docker, conectado a la base de datos PostgreSQL.  
+- **Base de Datos:** PostgreSQL en servidor dedicado o contenedor, con copias de seguridad diarias.  
+- **Frontend (React SPA):** Servido desde un servidor web Nginx, accesible vía HTTPS.  
+- **Integraciones:** API REST para sistemas externos, seguro mediante JWT y HTTPS.  
+- **Usuarios Internos:** Acceden vía navegador, autenticados y con roles definidos.
 
-**\<Opcional: Explicación de las interfases técnicas\>**
+# Glosario
 
-**\<Mapeo de Entrada/Salida a canales\>**
-
-# Estrategia de solución {#section-solution-strategy}
-
-# Vista de Bloques {#section-building-block-view}
-
-## Sistema General de Caja Blanca {#_sistema_general_de_caja_blanca}
-
-***\<Diagrama general\>***
-
-Motivación
-
-:   *\<Explicación en texto\>*
-
-Bloques de construcción contenidos
-
-:   *\<Desripción de los bloques de construcción contenidos (Cajas
-    negras)\>*
-
-Interfases importantes
-
-:   *\<Descripción de las interfases importantes\>*
-
-### \<Caja Negra 1\> {#_caja_negra_1}
-
-*\<Propósito/Responsabilidad\>*
-
-*\<Interfase(s)\>*
-
-*\<(Opcional) Características de Calidad/Performance\>*
-
-*\<(Opcional) Ubicación Archivo/Directorio\>*
-
-*\<(Opcional) Requerimientos Satisfechos\>*
-
-*\<(Opcional) Riesgos/Problemas/Incidentes Abiertos\>*
-
-### \<Caja Negra 2\> {#_caja_negra_2}
-
-*\<plantilla de caja negra\>*
-
-### \<Caja Negra N\> {#_caja_negra_n}
-
-*\<Plantilla de caja negra\>*
-
-### \<Interfase 1\> {#_interfase_1}
-
-...​
-
-### \<Interfase m\> {#_interfase_m}
-
-## Nivel 2 {#_nivel_2}
-
-### Caja Blanca *\<bloque de construcción 1\>* {#_caja_blanca_bloque_de_construcción_1}
-
-*\<plantilla de caja blanca\>*
-
-### Caja Blanca *\<bloque de construcción 2\>* {#_caja_blanca_bloque_de_construcción_2}
-
-*\<plantilla de caja blanca\>*
-
-...​
-
-### Caja Blanca *\<bloque de construcción m\>* {#_caja_blanca_bloque_de_construcción_m}
-
-*\<plantilla de caja blanca\>*
-
-## Nivel 3 {#_nivel_3}
-
-### Caja Blanca \<\_bloque de construcción x.1\_\> {#_caja_blanca_bloque_de_construcción_x_1}
-
-*\<plantilla de caja blanca\>*
-
-### Caja Blanca \<\_bloque de construcción x.2\_\> {#_caja_blanca_bloque_de_construcción_x_2}
-
-*\<plantilla de caja blanca\>*
-
-### Caja Blanca \<\_bloque de construcción y.1\_\> {#_caja_blanca_bloque_de_construcción_y_1}
-
-*\<plantilla de caja blanca\>*
-
-# Vista de Ejecución {#section-runtime-view}
-
-## \<Escenario de ejecución 1\> {#_escenario_de_ejecución_1}
-
--   *\<Inserte un diagrama de ejecución o la descripción del
-    escenario\>*
-
--   *\<Inserte la descripción de aspectos notables de las interacciones
-    entre los bloques de construcción mostrados en este diagrama.\>*
-
-## \<Escenario de ejecución 2\> {#_escenario_de_ejecución_2}
-
-## ...​
-
-## \<Escenario de ejecución n\> {#_escenario_de_ejecución_n}
-
-# Vista de Despliegue {#section-deployment-view}
-
-## Nivel de infraestructura 1 {#_nivel_de_infraestructura_1}
-
-***\<Diagrama General\>***
-
-Motivación
-
-:   *\<Explicación en forma textual\>*
-
-Características de Calidad/Rendimiento
-
-:   *\<Explicación en forma textual\>*
-
-    Mapeo de los Bloques de Construcción a Infraestructura
-
-    :   *\<Descripción del mapeo\>*
-
-## Nivel de Infraestructura 2 {#_nivel_de_infraestructura_2}
-
-### *\<Elemento de Infraestructura 1\>* {#_elemento_de_infraestructura_1}
-
-*\<diagrama + explicación\>*
-
-### *\<Elemento de Infraestructura 2\>* {#_elemento_de_infraestructura_2}
-
-*\<diagrama + explicación\>*
-
-...​
-
-### *\<Elemento de Infraestructura n\>* {#_elemento_de_infraestructura_n}
-
-*\<diagrama + explicación\>*
-
-# Conceptos Transversales (Cross-cutting) {#section-concepts}
-
-## *\<Concepto 1\>* {#_concepto_1}
-
-*\<explicación\>*
-
-## *\<Concepto 2\>* {#_concepto_2}
-
-*\<explicación\>*
-
-...​
-
-## *\<Concepto n\>* {#_concepto_n}
-
-*\<explicación\>*
-
-# Decisiones de Diseño {#section-design-decisions}
-
-# Requerimientos de Calidad {#section-quality-scenarios}
-
-## Árbol de Calidad {#_árbol_de_calidad}
-
-## Escenarios de calidad {#_escenarios_de_calidad}
-
-# Riesgos y deuda técnica {#section-technical-risks}
-
-# Glosario {#section-glossary}
-
-+----------------------+-----------------------------------------------+
-| Término              | Definición                                    |
-+======================+===============================================+
-| *\<Término-1\>*      | *\<definicion-1\>*                            |
-+----------------------+-----------------------------------------------+
-| *\<Término-2\>*      | *\<definicion-2\>*                            |
-+----------------------+-----------------------------------------------+
+- **Producto:** Artículo disponible para compra, con nombre, descripción, unidad de medida y precio unitario.  
+- **Proveedor:** Empresa o persona que suministra productos a la compañía.  
+- **Solicitud de Compra:** Petición de productos realizada por un usuario solicitante, que puede ser aprobada o rechazada.  
+- **Detalle de Solicitud:** Relación entre una solicitud y los productos solicitados, con cantidades específicas.  
+- **Orden de Compra:** Documento formal que autoriza la compra de productos a un proveedor, generado a partir de una solicitud aprobada.  
+- **Usuario:** Persona que interactúa con el ERP, con roles como administrador de compras, solicitante, RRHH o directivo.  
