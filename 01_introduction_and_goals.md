@@ -16,39 +16,6 @@ El sistema ERP tiene como objetivo centralizar y automatizar los procesos de neg
 
 
 
-# Vista de Ejecución (Runtime)
 
-## Escenario Crítico: Generar una Orden de Compra
 
-Este escenario describe cómo el sistema ERP procesa la creación de una orden de compra a partir de una solicitud aprobada.
 
-### Flujo de Interacciones
-1. El **Responsable de Compras** selecciona una solicitud aprobada en la web.  
-2. La **Aplicación Web** envía la solicitud al **Servidor API**.  
-3. El **API** verifica los datos en la **Base de Datos**.  
-4. Se registra la **Orden de Compra** en la base de datos.  
-5. El **API** envía la información de la orden al **Sistema Contable Externo**.  
-6. Se confirma la creación de la orden en la **Aplicación Web** y se notifica al usuario.
-
-## Diagrama de Secuencia
-
-![Diagrama de Secuencia](./docs/D3.png)
-
-# Vista de Despliegue
-
-- **Servidor Backend (Spring Boot):** Desplegado en contenedor Docker, conectado a la base de datos PostgreSQL.  
-- **Base de Datos:** PostgreSQL en servidor dedicado o contenedor, con copias de seguridad diarias.  
-- **Frontend (React SPA):** Servido desde un servidor web Nginx, accesible vía HTTPS.  
-- **Integraciones:** API REST para sistemas externos, seguro mediante JWT y HTTPS.  
-- **Usuarios Internos:** Acceden vía navegador, autenticados y con roles definidos.
-
-# Glosario
-
-- **Producto:** Artículo disponible para compra, con nombre, descripción, unidad de medida y precio unitario.  
-- **Proveedor:** Empresa o persona que suministra productos a la compañía.  
-- **Solicitud de Compra:** Petición de productos realizada por un usuario solicitante, que puede ser aprobada o rechazada.  
-- **Detalle de Solicitud:** Relación entre una solicitud y los productos solicitados, con cantidades específicas.  
-- **Orden de Compra:** Documento formal que autoriza la compra de productos a un proveedor, generado a partir de una solicitud aprobada.  
-- **Usuario:** Persona que interactúa con el ERP, con roles como administrador de compras, solicitante, RRHH o directivo.
-
-![Modelo Entidad-Relacion](./docs/D4.png)
